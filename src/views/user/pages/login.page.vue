@@ -1,6 +1,11 @@
 <template>
-    <div>登录页面</div>
+    <div class="login">登录页面</div>
 </template>
 <script setup>
 </script>
-<style  scoped></style>
+<style  scoped>
+.login {
+    height: 720px;
+    color: red;
+}
+</style>

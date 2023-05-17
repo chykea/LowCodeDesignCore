@@ -2,18 +2,45 @@
 
 <template>
   <div id="container">
-    <router-view></router-view>
+    <!-- <div class="header">
+      <router-link to="/">首页</router-link>
+    </div>
+    <router-view></router-view> -->
+    <div id="left"></div>
+    <div id="content">
+      <Selected>
+        <button>123465</button>
+      </Selected>
+    </div>
+    <div id="right"></div>
   </div>
 </template>
 <script setup>
+import Selected from './components/abstract/selected.vue';
+
 </script>
 <style scoped>
 #container {
   height: 100vh;
   width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+
+  /* flex-direction: column; */
 }
-</style>
+
+#left {
+  flex: 1;
+}
+
+#content {
+  flex: 3;
+}
+
+#right {
+  flex: 1;
+}
+
+/* .header {
+  width: 1376px;
+  margin: 0 auto;
+} */</style>

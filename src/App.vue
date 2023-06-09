@@ -1,22 +1,32 @@
-
-
 <template>
   <div id="container">
     <!-- <div class="header">
       <router-link to="/">首页</router-link>
-    </div>
-    <router-view></router-view> -->
+    </div> -->
+
+    <!-- <router-view></router-view> -->
+
     <div id="left"></div>
     <div id="content">
-      <Selected>
-        <button>123465</button>
-      </Selected>
+      <RootComponent :root="store.fileContent.get(1)"></RootComponent>
     </div>
     <div id="right"></div>
   </div>
 </template>
 <script setup>
-import Selected from './components/abstract/selected.vue';
+
+import { mainStore } from './store/index'
+import useTransformer from './components/userComponents/transformer';
+import RootComponent from './components/userComponents/rootComponent.vue';
+const store = mainStore()
+useTransformer()
+
+// 抽象组件可以触发子传父
+// const clickTest = (value) => {
+//   console.log(value);
+// }
+
+
 
 </script>
 <style scoped>
@@ -24,8 +34,6 @@ import Selected from './components/abstract/selected.vue';
   height: 100vh;
   width: 100%;
   display: flex;
-
-  /* flex-direction: column; */
 }
 
 #left {
@@ -43,4 +51,5 @@ import Selected from './components/abstract/selected.vue';
 /* .header {
   width: 1376px;
   margin: 0 auto;
-} */</style>
+} */
+</style>

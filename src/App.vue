@@ -1,14 +1,8 @@
 <template>
   <div id="container">
-    <!-- <div class="header">
-      <router-link to="/">首页</router-link>
-    </div> -->
-
-    <!-- <router-view></router-view> -->
-
     <div id="left"></div>
     <div id="content">
-      <RootComponent :root="store.fileContent.get(1)"></RootComponent>
+      <RootComponent :root="store.root"></RootComponent>
     </div>
     <div id="right"></div>
   </div>
@@ -21,10 +15,6 @@ import RootComponent from './components/userComponents/rootComponent.vue';
 const store = mainStore()
 useTransformer()
 
-// 抽象组件可以触发子传父
-// const clickTest = (value) => {
-//   console.log(value);
-// }
 
 
 

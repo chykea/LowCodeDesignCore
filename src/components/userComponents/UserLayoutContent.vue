@@ -1,7 +1,9 @@
 <template>
-    <div>
+    <div class="container">
         <componentDecorator v-for="child in myChildren" :key="child.id" :id="child.id" v-slot="data">
-            <component :is="getComponent(componentMap.get(child.tag))" v-bind="data.data"></component>
+            <component :is="getComponent(componentMap.get(child.tag))" @click.stop v-bind="data.data"
+                :component-id="child.id" :id="'component' + child.id"
+                :style="[child.style, { position: 'relative', 'user-select': 'none' }]"></component>
         </componentDecorator>
     </div>
 </template>
@@ -23,17 +25,38 @@ const props = defineProps({
     },
     width: {
         type: String,
-        default: ''
+        default: '400px'
     },
     height: {
         type: String,
-        default: ''
+        default: '400px'
     },
+    justifyContent: {
+        type: String,
+        default: 'flex-start'
+    },
+    alignItem: {
+        type: String,
+        default: 'center'
+    }
 })
+
+
 
 
 const comMap = new Map([['UserButton', UserButton], ['UserLayoutContent', UserLayoutContent]])
 const store = mainStore()
 const getComponent = (ComponentName) => comMap.get(ComponentName)
 </script>
-<style scoped></style>
+<style scoped>
+.container {
+    position: relative;
+    width: v-bind(width);
+    height: v-bind(height);
+    display: flex;
+    outline: dashed #bbb 1px;
+    flex-direction: column;
+    justify-content: v-bind(justifyContent);
+    align-items: v-bind(alignItem);
+}
+</style>

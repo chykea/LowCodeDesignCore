@@ -22,18 +22,17 @@ export default {
     setup(props, { emit, slots }) {
         if (!slots.default) return () => 'null'
         const rawData = computed(() => store.components.get(props.id) ?? null);
-
         const store = mainStore()
         const transformers = inject('__useTransformer', null)
         const transformer = computed(() => transformers.get(rawData.value.tag) ?? props.transformer)
 
         const data = computed(() => transformer.value(rawData.value))
+
         const clickActive = (cb) => (e) => {
             emit('click', e)
             store.activeComponentId = props.id
             if (cb) cb(e)
         }
-        console.log(data.value);
         return () => slots.default({ data: data.value })
             .map(
                 comp => {
@@ -41,7 +40,7 @@ export default {
                         comp.type,
                         {
                             ...comp.props,
-                            // onClick: clickActive(comp.props && comp.props.onClick)
+                            onClick: clickActive(comp.props && comp.props.onClick)
                         },
                         comp.children
                     )

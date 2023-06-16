@@ -1,8 +1,10 @@
 <template>
   <div id="container">
-    <div id="left"></div>
+    <div id="left">
+      <ComponentPanel></ComponentPanel>
+    </div>
     <div id="content">
-      <RootComponent :root="store.root"></RootComponent>
+      <RootComponent :root="root"></RootComponent>
     </div>
     <div id="right"></div>
   </div>
@@ -10,13 +12,24 @@
 <script setup>
 
 import { mainStore } from './store/index'
+import ComponentPanel from './components/Panel/ComponentPanel.vue';
+
 import useTransformer from './components/userComponents/transformer';
 import RootComponent from './components/userComponents/rootComponent.vue';
+
 const store = mainStore()
 useTransformer()
 
-
-
+const root = {
+  id: 1,
+  tag: 'LayoutContent',
+  props: {
+    style: {
+    }
+  },
+  childrens: [],
+  values: {}
+}
 
 </script>
 <style scoped>
@@ -27,15 +40,15 @@ useTransformer()
 }
 
 #left {
-  flex: 1;
+  width: 300px;
 }
 
 #content {
-  flex: 3;
+  flex: 1;
 }
 
 #right {
-  flex: 1;
+  width: 300px;
 }
 
 /* .header {

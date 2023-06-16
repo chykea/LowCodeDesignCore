@@ -3,7 +3,8 @@
         <componentDecorator v-for="child in myChildren" :key="child.id" :id="child.id" v-slot="data">
             <component :is="getComponent(componentMap.get(child.tag))" @click.stop v-bind="data.data"
                 :component-id="child.id" :id="'component' + child.id"
-                :style="[child.style, { position: 'relative', 'user-select': 'none' }]"></component>
+                :style="[child.style, { position: 'relative', 'user-select': 'none' }]">
+            </component>
         </componentDecorator>
     </div>
 </template>

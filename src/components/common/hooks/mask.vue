@@ -11,12 +11,15 @@ const activeComponentId = computed(() => store.activeComponentId !== -1 ? "#comp
 const isShow = computed(() => store.activeComponentId !== -1)
 
 let isMouseUp = true
-function startDrag() {
+function startDrag(e) {
 
     isMouseUp = false
     console.log('开始拖动');
+    console.log(e);
+
 }
 function MouseUp() {
+    console.log(isMouseUp);
     if (isMouseUp) {
         store.activeComponentId = -1;
         console.log('弹起');

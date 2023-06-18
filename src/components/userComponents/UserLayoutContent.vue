@@ -30,7 +30,7 @@ const props = defineProps({
     },
     height: {
         type: String,
-        default: '400px'
+        default: '200px'
     },
     justifyContent: {
         type: String,

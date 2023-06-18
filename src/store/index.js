@@ -53,7 +53,6 @@ export const mainStore = defineStore('main', {
             }
         },
         addComponent(node, parentId = 1) {
-            console.log(node);
             const copyNode = generateNode(node, parentId);
             this.components.set(copyNode.id, copyNode)
             if (parentId !== 0) this.components.get(parentId).childrens.push(copyNode)

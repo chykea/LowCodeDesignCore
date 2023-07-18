@@ -23,8 +23,8 @@ function startDrag(e) {
         'pointer-event': 'none'
     }
 
-    store.setActiveComponentTmpStyle(style)
-    document.onmousemove = function (e) {
+    store.setActiveComponentTmpStyle(style);
+    (!document.onmousemove) && (document.onmousemove = function (e) {
         if (!isMouseDown) return false
         const changeX = e.clientX - clientX
         const changeY = e.clientY - clientY
@@ -41,9 +41,9 @@ function startDrag(e) {
 
 
         store.setActiveComponentTmpStyle(style)
-    }
+    });
 
-    document.onmouseup = function (e) {
+    (!document.onmouseup) && (document.onmouseup = function (e) {
         if (!isMouseDown) return false
         isMouseDown = false
 
@@ -56,7 +56,7 @@ function startDrag(e) {
 
         document.onmousemove = null
         document.onmouseup = null
-    }
+    })
 
 }
 

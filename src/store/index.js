@@ -23,7 +23,8 @@ function generateNode(node, parentId = 1) {
         tag: node.tag,
         props: cloneDeep(node.props),
         values: cloneDeep(node.values),
-        childrens: []
+        childrens: [],
+        tmpStyle: {} // 操作组件时的临时样式
     }
 }
 export const mainStore = defineStore('main', {
@@ -31,7 +32,7 @@ export const mainStore = defineStore('main', {
         return {
             components: new Map(),
             activeComponentId: -1,
-            activeComponentValue: {},
+            activeContainerId: -1,
             fileContent: file, // 存储文件信息,
         }
     },
@@ -57,10 +58,30 @@ export const mainStore = defineStore('main', {
             this.components.set(copyNode.id, copyNode)
             if (parentId !== 0) this.components.get(parentId).childrens.push(copyNode)
             if (node.childrens) node.childrens.forEach(child => this.addComponent(child, copyNode.id))
-        }
+        },
+        setActiveComponentTmpStyle(style) {
+            if (this.activeComponentId === -1) return
+            const componentStyle = this.components.get(this.activeComponentId).tmpStyle;
+            for (let key in style) {
+                componentStyle[key] = style[key]
+            }
+        },
 
-        // initComponent,
-        // addComponent,
+        clearActiveComponentTmpStyle(activeComponentId) {
+            if (activeComponentId === -1) return
+            this.components.get(activeComponentId).tmpStyle = {}
+        },
+        setActiveContainerId(containerId) {
+            this.activeContainerId = containerId
+        },
+        resetActiveComponent() {
+            if (this.activeComponentId === -1) return
+            this.components.get(this.activeComponentId).tmpStyle = {}
+            this.activeComponentId = -1
+        },
+        resetActiveContainer() {
+            this.activeContainerId = -1
+        }
 
     }
 })

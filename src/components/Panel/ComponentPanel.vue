@@ -39,7 +39,9 @@ const templateNode = [
             template:
             {
                 tag: 'Button',
-                props: {},
+                props: {
+                    style: {}
+                },
                 values: {
                     text: '测试按钮'
                 },

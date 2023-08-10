@@ -68,7 +68,6 @@ export const mainStore = defineStore('main', {
             for (let key in style) {
                 componentStyle[key] = style[key]
             }
-            console.log('123', componentStyle);
         },
         // 清除临时样式
         clearActiveComponentTmpStyle(activeComponentId) {

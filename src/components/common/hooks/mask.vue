@@ -12,8 +12,9 @@ const store = mainStore()
 const activeComponentId = computed(() => store.activeComponentId !== -1 ? "#component" + store.activeComponentId : 'body')
 const isShow = computed(() => store.activeComponentId !== -1)
 
-
+// 遮罩层拖拽
 function startDrag(e) {
+
     let isMouseDown = true
     const clientX = e.clientX
     const clientY = e.clientY
@@ -24,8 +25,10 @@ function startDrag(e) {
     }
 
     store.setActiveComponentTmpStyle(style);
+    // 如果移动过程中已经有监听事件,就不再重复添加
     (!document.onmousemove) && (document.onmousemove = function (e) {
-        if (!isMouseDown) return false
+        // 鼠标还没有弹起(isMouseDown = true),表示正在拖拽
+        if (!isMouseDown) return false;
         const changeX = e.clientX - clientX
         const changeY = e.clientY - clientY
 
@@ -33,7 +36,8 @@ function startDrag(e) {
             transform: `translate(${changeX}px,${changeY}px)`
         }
         const newActiveContainerId = getContainer(e.target)
-
+        console.log(e.target);
+        console.log(newActiveContainerId);
         if (newActiveContainerId !== activeContainertId) {
             activeContainertId = newActiveContainerId;
             store.setActiveContainerId(newActiveContainerId)

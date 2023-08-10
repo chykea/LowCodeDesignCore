@@ -22,7 +22,8 @@ export default {
 button {
     width: 100px;
     height: 35px;
-    transition: all .5s;
+    transition-property: background-color, color;
+    transition-duration: .5s;
     border: none;
 }
 

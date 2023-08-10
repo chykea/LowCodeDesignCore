@@ -51,6 +51,8 @@ const store = mainStore()
 const componentId = props.componentId
 const getComponent = (ComponentName) => comMap.get(ComponentName)
 const isActive = computed(() => componentId === store.activeContainerId)
+
+
 </script>
 <style scoped>
 .container {
@@ -66,5 +68,6 @@ const isActive = computed(() => componentId === store.activeContainerId)
 
 .active {
     outline: #4a8af4 solid 2px;
+    z-index: 1000;
 }
 </style>

@@ -1,3 +1,10 @@
+<!--
+ * @Author: chykea
+ * @Date: 2023-06-10 22:49:47
+ * @LastEditors: chykea
+ * @LastEditTime: 2023-08-10 14:31:34
+ * @Description: 请填写简介
+-->
 <template>
     <teleport :to="activeComponentId">
         <div class="frame" @click.stop @mousedown.stop="startDrag" v-show="isShow">
@@ -8,6 +15,7 @@
 import { computed, ref } from 'vue';
 import { mainStore } from '../../../store';
 import getContainer from '../../utils/getContainer'
+import { throttle } from '../../utils/utils';
 const store = mainStore()
 const activeComponentId = computed(() => store.activeComponentId !== -1 ? "#component" + store.activeComponentId : 'body')
 const isShow = computed(() => store.activeComponentId !== -1)
@@ -20,13 +28,16 @@ function startDrag(e) {
     const clientY = e.clientY
     let activeContainertId = -1
 
+    const { offsetX: mouseLeft, offsetY: mouseTop } = e;
+
     const style = {
-        'pointer-event': 'none'
+        'pointer-events': 'none'
     }
 
     store.setActiveComponentTmpStyle(style);
     // 如果移动过程中已经有监听事件,就不再重复添加
-    (!document.onmousemove) && (document.onmousemove = function (e) {
+    (!document.onmousemove) && (document.onmousemove = throttle(function (e) {
+        // console.log(1);
         // 鼠标还没有弹起(isMouseDown = true),表示正在拖拽
         if (!isMouseDown) return false;
         const changeX = e.clientX - clientX
@@ -36,16 +47,15 @@ function startDrag(e) {
             transform: `translate(${changeX}px,${changeY}px)`
         }
         const newActiveContainerId = getContainer(e.target)
-        console.log(e.target);
-        console.log(newActiveContainerId);
+        // console.log(e.target);
         if (newActiveContainerId !== activeContainertId) {
             activeContainertId = newActiveContainerId;
-            store.setActiveContainerId(newActiveContainerId)
+            store.setActiveContainerId(activeContainertId)
         }
 
 
         store.setActiveComponentTmpStyle(style)
-    });
+    }));
 
     (!document.onmouseup) && (document.onmouseup = function (e) {
         if (!isMouseDown) return false

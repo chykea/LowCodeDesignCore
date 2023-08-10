@@ -1,3 +1,10 @@
+<!--
+ * @Author: chykea
+ * @Date: 2023-05-17 15:01:39
+ * @LastEditors: chykea
+ * @LastEditTime: 2023-08-10 14:00:39
+ * @Description: 请填写简介
+-->
 
 
 <script>
@@ -30,7 +37,7 @@ export default {
 
         const clickActive = (cb) => (e) => {
             emit('click', e)
-            store.activeComponentId = props.id
+            store.setActiveComponent(props.id)
             if (cb) cb(e)
         }
         return () => slots.default({ data: data.value })

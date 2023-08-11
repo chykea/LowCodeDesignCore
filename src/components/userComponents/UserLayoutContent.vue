@@ -68,6 +68,5 @@ const isActive = computed(() => componentId === store.activeContainerId)
 
 .active {
     outline: #4a8af4 solid 2px;
-    z-index: 1000;
 }
 </style>

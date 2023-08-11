@@ -2,7 +2,7 @@
  * @Author: chykea
  * @Date: 2023-08-10 17:54:46
  * @LastEditors: chykea
- * @LastEditTime: 2023-08-11 10:28:09
+ * @LastEditTime: 2023-08-11 18:05:10
  * @Description: 控制器类
  */
 // 模拟数据
@@ -28,7 +28,7 @@ class Controller {
     test(ctx) {
         ctx.body = {
             code: '200',
-            msg: '测试',
+            msg: '测试连接',
             data: null
         }
     }
@@ -40,5 +40,23 @@ class Controller {
             data
         }
     }
+
+    postContent(ctx) {
+        const params = ctx.request.body
+        console.log(params);
+        ctx.body = {
+            code: '200',
+            msg: '保存成功',
+            data: params
+        }
+    }
+
+    tip() {
+        ctx.body = {
+            code: '404',
+            msg: '暂无请求接口~',
+        }
+    }
+
 }
 export default new Controller()

@@ -2,7 +2,7 @@
  * @Author: chykea
  * @Date: 2023-06-10 22:49:47
  * @LastEditors: chykea
- * @LastEditTime: 2023-08-11 13:59:34
+ * @LastEditTime: 2023-08-11 17:43:23
  * @Description: 请填写简介
 -->
 <template>
@@ -12,7 +12,7 @@
     </teleport>
 </template>
 <script setup>
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { mainStore } from '../../../store';
 import getContainer from '../../utils/getContainer'
 import { throttle } from '../../utils/utils';
@@ -22,7 +22,6 @@ const isShow = computed(() => store.activeComponentId !== -1)
 
 // 遮罩层拖拽
 function startDrag(e) {
-
     let isMouseDown = true
     const clientX = e.clientX
     const clientY = e.clientY
@@ -47,13 +46,10 @@ function startDrag(e) {
             transform: `translate(${changeX}px,${changeY}px)`
         }
         const newActiveContainerId = getContainer(e.target)
-        // console.log(e.target);
         if (newActiveContainerId !== activeContainertId) {
             activeContainertId = newActiveContainerId;
             store.setActiveContainerId(activeContainertId)
         }
-
-
         store.setActiveComponentTmpStyle(style)
     }));
 
@@ -65,12 +61,15 @@ function startDrag(e) {
         const targetId = store.activeComponentId
         const from = store.components.get(targetId).parentId
 
-        
+        // 拖拽完成
+        // 重置当前选中的组件和容器
         store.resetActiveComponent()
         store.resetActiveContainer()
+        // 清除当前拖拽组件的临时样式
         store.clearActiveComponentTmpStyle(targetId)
 
-        store.moveComponent({to,from,targetId})
+        // 组件移动到其他容器
+        store.moveComponent({ to, from, targetId })
 
         document.onmousemove = null
         document.onmouseup = null

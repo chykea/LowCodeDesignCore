@@ -6,6 +6,10 @@ const app = new Koa()
 
 
 app.use(koaBody())
+app.use((ctx, next) => {
+    ctx.header = '"Access-Control-Allow-Origin": "http://localhost:5173"'
+    next()
+})
 
 app.use(base.routes())
 

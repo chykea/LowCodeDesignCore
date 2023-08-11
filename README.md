@@ -3,3 +3,9 @@
 </div>
 
 
+### 依赖
+npm i 
+### 运行
+本地项目: npm run dev<br>
+本地服务器: npm run server
+

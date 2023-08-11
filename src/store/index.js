@@ -27,6 +27,7 @@ function generateNode(node, parentId = 1) {
         tmpStyle: {} // 操作组件时的临时样式
     }
 }
+
 export const mainStore = defineStore('main', {
     state: () => {
         return {
@@ -97,6 +98,40 @@ export const mainStore = defineStore('main', {
 
             // 当前激活的组件,要置于顶层
             this.components.get(id).tmpStyle['z-index'] = '1000';
+        },
+
+        // 移动组件
+        moveComponent({to,from,targetId}){
+            if(to===-1) return
+            if(to!==from){
+                const move = this.deleteComponentJson(from,targetId)
+                move.parentId = to;
+                this.components.get(to).childrens.push(move)
+            }
+        },
+        deleteComponent(){
+            if(this.activeComponentId===-1) return
+            const parentId = this.components.get(this.activeComponentId).parentId;
+            this.resetActiveComponent()
+            this.deleteComponentMap(this.activeComponentId)
+            this.deleteComponentJson(parentId,this.activeComponentId)
+        },
+
+        deleteComponentJson(parentId,targetId){
+            const childrens = this.components.get(parentId).childrens;
+            for(let i = 0;i<childrens.length;i++){
+                if(childrens[i].id === targetId){
+                    return childrens.splice(i,1)[0]
+                }
+            }
+            return null
+        },
+
+        deleteComponentMap(activeComponentId){
+            const childrens = this.components.get(activeComponentId).childrens;
+            this.components.delete(activeComponentId);
+            // 递归删除
+            childrens.forEach(child=>this.deleteComponentMap(child.id))
         }
 
     }

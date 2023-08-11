@@ -2,7 +2,7 @@
  * @Author: chykea
  * @Date: 2023-06-10 22:49:47
  * @LastEditors: chykea
- * @LastEditTime: 2023-08-10 14:31:34
+ * @LastEditTime: 2023-08-11 13:59:34
  * @Description: 请填写简介
 -->
 <template>
@@ -61,12 +61,16 @@ function startDrag(e) {
         if (!isMouseDown) return false
         isMouseDown = false
 
+        const to = store.activeContainerId
         const targetId = store.activeComponentId
+        const from = store.components.get(targetId).parentId
 
+        
         store.resetActiveComponent()
         store.resetActiveContainer()
         store.clearActiveComponentTmpStyle(targetId)
 
+        store.moveComponent({to,from,targetId})
 
         document.onmousemove = null
         document.onmouseup = null

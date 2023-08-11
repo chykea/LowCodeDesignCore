@@ -10,8 +10,8 @@ instance.interceptors.request.use(config => {
     return config
 })
 
-instance.interceptors.response.use(res => {
-    const res = res.data;
+instance.interceptors.response.use(response => {
+    const res = response.data;
     if (res.code !== '200') {
         ElMessage({
             message: '接口请求有误',

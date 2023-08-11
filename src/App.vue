@@ -6,7 +6,11 @@
     <div id="content">
       <div class="outsidebox">
         <div class="canva-page">
-          <RootComponent :root="root"></RootComponent>
+          <Suspense>
+            <template #default>
+              <RootComponent></RootComponent>
+            </template>
+          </Suspense>
         </div>
       </div>
     </div>
@@ -15,27 +19,13 @@
 </template>
 <script setup>
 
-import { mainStore } from './store/index'
 import ComponentPanel from './components/Panel/ComponentPanel.vue';
 
 import useTransformer from './components/userComponents/transformer';
 import RootComponent from './components/userComponents/rootComponent.vue';
 
-const store = mainStore()
 useTransformer()
 
-const root = {
-  id: 1,
-  tag: 'LayoutContent',
-  props: {
-    style: {
-      width: '100%',
-      height: '100%',
-    }
-  },
-  childrens: [],
-  values: {}
-}
 
 </script>
 <style scoped>

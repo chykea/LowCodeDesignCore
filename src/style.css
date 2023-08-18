@@ -5,3 +5,6 @@
 .code-box{
   width: 300px;
 }
+html,body{
+  min-width: 1536px;
+}

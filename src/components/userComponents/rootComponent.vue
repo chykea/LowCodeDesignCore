@@ -14,15 +14,17 @@ import UserLayoutContent from './UserLayoutContent.vue';
 import { mainStore } from '../../store';
 import Mask from '../common/hooks/mask.vue';
 import { ref } from 'vue';
-import { getContent } from '../../request/index'
+import { getContent, getTemplate } from '../../request/index'
 
-const {data} = await getContent()
-const root = data.template.root;
+const tmp = await getTemplate()
+const root = tmp.data.template;
 
 const store = mainStore()
 const rootNode = ref(root)
-
 store.initComponent(rootNode.value, 0)
+store.setFileByJSON(tmp.data)
+
+
 
 const comMap = new Map([['UserButton', UserButton], ['UserLayoutContent', UserLayoutContent]])
 const getComponent = (ComponentName) => comMap.get(ComponentName)

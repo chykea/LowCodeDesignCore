@@ -8,6 +8,7 @@ const app = new Koa()
 app.use(koaBody())
 app.use((ctx, next) => {
     ctx.set("Access-Control-Allow-Origin", "*")
+    ctx.set("Access-Control-Allow-Headers", "*")
     next()
 })
 

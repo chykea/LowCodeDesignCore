@@ -7,6 +7,7 @@ const instance = axios.create({
 
 // 请求配置
 instance.interceptors.request.use(config => {
+    config.headers['Content-Type'] = 'application/json;charset=UTF-8'
     return config
 })
 
@@ -15,7 +16,7 @@ instance.interceptors.response.use(response => {
     if (res.code !== '200') {
         ElMessage({
             message: '接口请求有误',
-            type: "danger",
+            type: "error",
             duration: 2000
         })
         return null

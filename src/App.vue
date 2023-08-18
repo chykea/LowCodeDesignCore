@@ -1,25 +1,29 @@
 <template>
-  <div id="container">
-    <div id="left">
-      <ComponentPanel></ComponentPanel>
-    </div>
-    <div id="content">
-      <div class="outsidebox">
-        <div class="canva-page">
-          <Suspense>
-            <template #default>
-              <RootComponent></RootComponent>
-            </template>
-          </Suspense>
+  <div id="container_wrapper">
+    <Header />
+    <div id="container">
+      <div id="left">
+        <ComponentPanel></ComponentPanel>
+      </div>
+      <div id="content">
+        <div class="outsidebox">
+          <div class="canva-page">
+            <Suspense>
+              <template #default>
+                <RootComponent></RootComponent>
+              </template>
+            </Suspense>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="right">
-      <ComponentEdit></ComponentEdit>
+      <div id="right">
+        <ComponentEdit></ComponentEdit>
+      </div>
     </div>
   </div>
 </template>
 <script setup>
+import Header from './components/header/Header.vue'
 
 import ComponentPanel from './components/Panel/ComponentPanel.vue';
 
@@ -33,6 +37,14 @@ useTransformer()
 
 </script>
 <style scoped>
+#container_wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
 #container {
   height: 100vh;
   width: 100%;

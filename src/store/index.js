@@ -3,8 +3,10 @@ import { cloneDeep } from 'lodash'
 
 
 const file = {
+    lang: '',
     title: '',
-
+    iconUrl: '',
+    template: null
 }
 
 let newestId = -1
@@ -101,39 +103,55 @@ export const mainStore = defineStore('main', {
         },
 
         // 移动组件
-        moveComponent({to,from,targetId}){
-            if(to===-1) return
-            if(to!==from){
-                const move = this.deleteComponentJson(from,targetId)
+        moveComponent({ to, from, targetId }) {
+            if (to === -1) return
+            if (to !== from) {
+                const move = this.deleteComponentJson(from, targetId)
                 move.parentId = to;
                 this.components.get(to).childrens.push(move)
             }
         },
-        deleteComponent(){
-            if(this.activeComponentId===-1) return
+        // 删除组件
+        deleteComponent() {
+            if (this.activeComponentId === -1) return
             const parentId = this.components.get(this.activeComponentId).parentId;
             this.resetActiveComponent()
             this.deleteComponentMap(this.activeComponentId)
-            this.deleteComponentJson(parentId,this.activeComponentId)
+            this.deleteComponentJson(parentId, this.activeComponentId)
         },
 
-        deleteComponentJson(parentId,targetId){
+        deleteComponentJson(parentId, targetId) {
             const childrens = this.components.get(parentId).childrens;
-            for(let i = 0;i<childrens.length;i++){
-                if(childrens[i].id === targetId){
-                    return childrens.splice(i,1)[0]
+            for (let i = 0; i < childrens.length; i++) {
+                if (childrens[i].id === targetId) {
+                    return childrens.splice(i, 1)[0]
                 }
             }
             return null
         },
 
-        deleteComponentMap(activeComponentId){
+        deleteComponentMap(activeComponentId) {
             const childrens = this.components.get(activeComponentId).childrens;
             this.components.delete(activeComponentId);
             // 递归删除
-            childrens.forEach(child=>this.deleteComponentMap(child.id))
-        }
+            childrens.forEach(child => this.deleteComponentMap(child.id))
+        },
+        deleteComponentKey(node, key) {
+            delete node[key]
+            if (node.childrens.length) {
+                node.childrens.forEach(child => this.deleteComponentKey(child, key))
+            }
+        },
 
+        setFileByJSON(template) {
+            this.fileContent = template;
+        },
+        setFileContentTemplate() {
+            const root = cloneDeep(this.components.get(1))
+            this.deleteComponentKey(root, 'tmpStyle')
+            this.fileContent['template'] = root;
+            return this.fileContent;
+        }
     }
 })
 

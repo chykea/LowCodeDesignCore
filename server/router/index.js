@@ -13,6 +13,9 @@ const router = new Router({ prefix: '/test' })
 router.get('/', controller.test)
 router.get('/getContent', controller.getContent)
 router.post('/postContent', controller.postContent)
+router.get('/getTemplate', controller.getTemplate)
+
+
 router.all('/(.*)', controller.tip);
 
 export default router

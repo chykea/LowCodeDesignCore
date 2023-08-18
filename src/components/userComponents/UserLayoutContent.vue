@@ -1,5 +1,5 @@
 <template>
-    <div class="container" :class="{ active: isActive }">
+    <div class="container" :class="{ active: isActive }" @drop.stop="dropIn" @dragover.prevent>
         <componentDecorator v-for="child in myChildren" :key="child.id" :id="child.id" v-slot="data">
             <component :is="getComponent(componentMap.get(child.tag))" @click.stop v-bind="data.data"
                 :component-id="child.id" :id="'component' + child.id"
@@ -53,6 +53,11 @@ const getComponent = (ComponentName) => comMap.get(ComponentName)
 const isActive = computed(() => componentId === store.activeContainerId)
 
 
+const dropIn = (e) => {
+    const node = JSON.parse(e.dataTransfer.getData('node'))
+    store.addComponent(node, componentId)
+
+}
 </script>
 <style scoped>
 .container {

@@ -2,7 +2,7 @@
  * @Author: chykea
  * @Date: 2023-08-10 17:54:46
  * @LastEditors: chykea
- * @LastEditTime: 2023-08-11 18:05:10
+ * @LastEditTime: 2023-08-17 18:21:52
  * @Description: 控制器类
  */
 // 模拟数据
@@ -51,7 +51,7 @@ class Controller {
         }
     }
 
-    tip() {
+    tip(ctx) {
         ctx.body = {
             code: '404',
             msg: '暂无请求接口~',

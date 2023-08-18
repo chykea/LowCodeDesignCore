@@ -8,7 +8,8 @@
         </ul>
         <div class="component_options" :class="tabSelected == index ? 'current' : ''" v-for="(item, index) in templateNode">
             <ul>
-                <li v-for="t in item.componentData" :key="t.cid" @click="addComponent(t.template)">
+                <li v-for="t in item.componentData" :key="t.cid" @click="addComponent(t.template)"
+                    @dragstart="dragStart(t.template, $event)">
                     <img :src="t.imgSrc" />
                     <span>{{ t.cname }}</span>
                 </li>
@@ -25,8 +26,7 @@ const tabChange = (index) => {
     tabSelected.value = index
 }
 const addComponent = (node) => {
-    // console.log(node);
-    store.addComponent(node)
+    store.addComponent(node) // 点击,直接向根节点添加组件
 }
 const templateNode = [
     {
@@ -69,6 +69,11 @@ const templateNode = [
 
     }
 ]
+
+const dragStart = (template, $event) => {
+    $event.dataTransfer.setData('node', JSON.stringify(template))
+}
+
 </script>
 <style  scoped>
 .component_panel {

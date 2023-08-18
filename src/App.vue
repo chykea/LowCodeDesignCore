@@ -14,7 +14,9 @@
         </div>
       </div>
     </div>
-    <div id="right"></div>
+    <div id="right">
+      <ComponentEdit></ComponentEdit>
+    </div>
   </div>
 </template>
 <script setup>
@@ -23,6 +25,8 @@ import ComponentPanel from './components/Panel/ComponentPanel.vue';
 
 import useTransformer from './components/userComponents/transformer';
 import RootComponent from './components/userComponents/rootComponent.vue';
+
+import ComponentEdit from './components/Edit/index.vue';
 
 useTransformer()
 

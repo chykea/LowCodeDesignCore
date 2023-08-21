@@ -2,7 +2,7 @@
  * @Author: chykea
  * @Date: 2023-08-10 17:54:46
  * @LastEditors: chykea
- * @LastEditTime: 2023-08-18 15:44:20
+ * @LastEditTime: 2023-08-21 10:30:29
  * @Description: 控制器类
  */
 
@@ -13,23 +13,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 const fileNameNew = fileURLToPath(import.meta.url)
 const dirNameNew = path.dirname(fileNameNew)
+const server = path.resolve(fileNameNew, '../../')
 
-const data = {
-    template: {
-        root: {
-            id: 1,
-            tag: 'LayoutContent',
-            props: {
-                style: {
-                    width: '100%',
-                    height: '100%',
-                }
-            },
-            childrens: [],
-            values: {}
-        }
-    }
-}
 
 
 
@@ -42,31 +27,15 @@ class Controller {
         }
     }
 
-    getContent(ctx) {
-        ctx.body = {
-            code: '200',
-            msg: '成功',
-            data
-        }
-    }
-
+    // 保存文件
     postContent(ctx) {
         const params = ctx.request.body
-        const path = '../template.json'
-        fs.writeFile(path, JSON.stringify(params, undefined, 4), (err) => {
+        fs.writeFile(server + '/data/index.json', JSON.stringify(params, undefined, 4), (err) => {
             if (!err) {
                 console.log('写入成功');
-                fs.readFile(path, (err, data) => {
-                    if (!err) {
-                        console.log(data.toString());
-                    }
-                    else {
-                        console.log('读取失败');
-                    }
-                })
             }
             else {
-                console.log('写入失败');
+                console.log('写入失败', err.message);
             }
         })
 
@@ -78,12 +47,23 @@ class Controller {
         }
     }
 
-    getTemplate(ctx) {
-        ctx.body = {
-            code: '200',
-            msg: '成功',
-            data: template
+    async getTemplate(ctx) {
+        const file = await import('../data/index.json')
+        if (JSON.stringify(file.default) === '{}') {
+            // 没有保存过的，就使用初始模板
+            ctx.body = {
+                code: '200',
+                msg: '成功',
+                data: template
+            }
+        } else {
+            ctx.body = {
+                code: '200',
+                msg: '成功',
+                data: file.default
+            }
         }
+
     }
 
     tip(ctx) {

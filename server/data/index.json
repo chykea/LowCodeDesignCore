@@ -1,0 +1,29 @@
+{
+    "lang": "",
+    "title": "",
+    "iconUrl": "",
+    "template": {
+        "id": 1,
+        "parentId": 0,
+        "tag": "LayoutContent",
+        "props": {
+            "style": {
+                "width": "100%",
+                "height": "100%"
+            }
+        },
+        "values": {},
+        "childrens": [
+            {
+                "id": 2,
+                "parentId": 1,
+                "tag": "LayoutContent",
+                "props": {
+                    "style": {}
+                },
+                "values": {},
+                "childrens": []
+            }
+        ]
+    }
+}

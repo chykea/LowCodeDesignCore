@@ -17,6 +17,7 @@ import { ref } from 'vue';
 import { getContent, getTemplate } from '../../request/index'
 
 const tmp = await getTemplate()
+console.log(tmp)
 const root = tmp.data.template;
 
 const store = mainStore()

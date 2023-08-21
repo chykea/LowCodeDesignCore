@@ -32,6 +32,9 @@ const saveImpl = async (params) => {
 
 // 处理下载
 const download = () => {
+    // 先保存
+    save()
+    // 再下载
     const file = store.setFileContentTemplate()
     const writeFile = JSON.stringify(file, undefined, 4)
     downloadFile(writeFile)

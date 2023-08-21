@@ -12,7 +12,8 @@
                 <ElButton @click="download">下载</ElButton>
             </div>
         </div>
-        <div class="user"></div>
+        <div class="user">
+        </div>
     </div>
 </template>
 <script setup>

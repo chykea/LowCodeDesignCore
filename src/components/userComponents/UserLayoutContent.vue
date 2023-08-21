@@ -13,6 +13,7 @@ import componentDecorator from '../abstract/componentDecorator.vue';
 import componentMap from './componentMap';
 import UserButton from './UserButton.vue';
 import UserLayoutContent from './UserLayoutContent.vue'
+import UserForm from './UserForm.vue';
 import { mainStore } from '../../store';
 import { computed } from 'vue';
 
@@ -46,7 +47,7 @@ const props = defineProps({
 
 
 
-const comMap = new Map([['UserButton', UserButton], ['UserLayoutContent', UserLayoutContent]])
+const comMap = new Map([['UserButton', UserButton], ['UserLayoutContent', UserLayoutContent], ['UserForm', UserForm]])
 const store = mainStore()
 const componentId = props.componentId
 const getComponent = (ComponentName) => comMap.get(ComponentName)

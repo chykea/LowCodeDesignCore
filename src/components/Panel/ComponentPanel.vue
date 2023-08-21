@@ -64,7 +64,26 @@ const templateNode = [
                 values: {},
                 childrens: []
             }
-
+        }, {
+            cid: 2,
+            cname: '表单',
+            imgSrc: '/src/assets/vue.svg',
+            template: {
+                tag: 'Form',
+                props: {
+                    style: {
+                        width: '500px'
+                    },
+                    model: {
+                        name: '飞虎队',
+                        age: '18',
+                        address: 'China'
+                    },
+                    ref: 'testForm'
+                },
+                values: {},
+                childrens: []
+            }
         }]
 
     }

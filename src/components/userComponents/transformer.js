@@ -17,12 +17,22 @@ const UserLayoutContent = (raw) => {
     }
 }
 
+const UserForm = (raw) => {
+    return {
+        style: raw.props.style,
+        ref: raw.props.ref,
+        rules: raw.props.rules,
+        labelWidth: raw.props.labelWidth,
+        model: raw.props.model
+    }
+}
 const useTransformer = () => {
     provide(
         '__useTransformer',
         new Map([
             ['Button', UserButton],
-            ['LayoutContent', UserLayoutContent]
+            ['LayoutContent', UserLayoutContent],
+            ['Form', UserForm]
         ])
     )
 }

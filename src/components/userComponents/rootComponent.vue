@@ -15,6 +15,7 @@ import { mainStore } from '../../store';
 import Mask from '../common/hooks/mask.vue';
 import { ref } from 'vue';
 import { getContent, getTemplate } from '../../request/index'
+import UserForm from './UserForm.vue';
 
 const tmp = await getTemplate()
 console.log(tmp)
@@ -27,7 +28,7 @@ store.setFileByJSON(tmp.data)
 
 
 
-const comMap = new Map([['UserButton', UserButton], ['UserLayoutContent', UserLayoutContent]])
+const comMap = new Map([['UserButton', UserButton], ['UserLayoutContent', UserLayoutContent], ['UserForm', UserForm]])
 const getComponent = (ComponentName) => comMap.get(ComponentName)
 
 

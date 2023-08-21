@@ -1,6 +1,10 @@
 <template>
     <div id="header">
-        <div class="title"></div>
+        <div class="title">
+            <ElInput v-if="edit" v-model="title" />
+            <span v-else>{{ title }}</span>
+            <ElButton @click="setFileTitle">{{ edit ? '保存' : '编辑' }}</ElButton>
+        </div>
         <div class="operation">
             <div class="operation_box">
                 <ElButton>预览</ElButton>
@@ -14,8 +18,21 @@
 <script setup>
 import { mainStore } from '../../store';
 import { saveContent } from '../../request/index.js'
+import { ref } from 'vue';
+import { ElButton, ElInput } from 'element-plus';
 
 const store = mainStore();
+
+// 标题
+const title = ref(store.fileContent.title)
+const edit = ref(false)
+const setFileTitle = () => {
+    store.setFileTitle(title.value)
+    edit.value = !edit.value
+}
+
+
+// 处理保存
 const save = () => {
     const file = store.setFileContentTemplate()
     const p = saveImpl(file)

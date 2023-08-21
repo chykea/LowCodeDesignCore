@@ -143,15 +143,26 @@ export const mainStore = defineStore('main', {
             }
         },
 
+        /** 开始处理文件信息
+         * 
+         * 
+         */
+        // 将传入的template设置为当前的文件,一般是保存服务器响应回来的文件数据
         setFileByJSON(template) {
             this.fileContent = template;
         },
+        // 将当前的根节点保存到文件中
         setFileContentTemplate() {
             const root = cloneDeep(this.components.get(1))
             this.deleteComponentKey(root, 'tmpStyle')
             this.fileContent['template'] = root;
             return this.fileContent;
-        }
+        },
+        // 处理文件的title
+        setFileTitle(title) {
+            this.fileContent['title'] = title;
+        },
+
     }
 })
 

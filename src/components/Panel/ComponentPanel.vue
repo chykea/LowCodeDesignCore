@@ -31,7 +31,7 @@ const addComponent = (node) => {
 const templateNode = [
     {
         id: 1,
-        tag: '容器',
+        tag: '组件',
         componentData: [{
             cid: 1,
             cname: '按钮',
@@ -45,23 +45,6 @@ const templateNode = [
                 values: {
                     text: '测试按钮'
                 },
-                childrens: []
-            }
-        }]
-    },
-    {
-        id: 2,
-        tag: '组件',
-        componentData: [{
-            cid: 1,
-            cname: '纵向布局',
-            imgSrc: '/src/assets/vue.svg',
-            template: {
-                tag: 'LayoutContent',
-                props: {
-                    style: {}
-                },
-                values: {},
                 childrens: []
             }
         }, {
@@ -80,6 +63,23 @@ const templateNode = [
                         address: ''
                     },
                     ref: 'testForm'
+                },
+                values: {},
+                childrens: []
+            }
+        }]
+    },
+    {
+        id: 2,
+        tag: '容器',
+        componentData: [{
+            cid: 1,
+            cname: '纵向布局',
+            imgSrc: '/src/assets/vue.svg',
+            template: {
+                tag: 'LayoutContent',
+                props: {
+                    style: {}
                 },
                 values: {},
                 childrens: []

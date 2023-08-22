@@ -21,12 +21,20 @@ import { mainStore } from '../../store';
 import { saveContent } from '../../request/index.js'
 import { ref } from 'vue';
 import { ElButton, ElInput } from 'element-plus';
+import eventBus from '../utils/eventBus'
+
 
 const store = mainStore();
 
-// 标题
+// 标题 
+// 请求组件的模板是在rootComponent进行的，但Header与rootComponent并不是父子组件，无法使用defineEmits来传递事件
+// 这里使用eventBus(发布订阅模式)来解决
 const title = ref(store.fileContent.title)
-console.log(title.value);
+eventBus.on('title', (t) => {
+    title.value = t
+})
+
+
 const edit = ref(false)
 const setFileTitle = () => {
     store.setFileTitle(title.value)

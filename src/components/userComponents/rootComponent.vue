@@ -11,15 +11,17 @@ import ComponentDecorator from '../abstract/componentDecorator.vue';
 import componentMap from './componentMap';
 import UserButton from './UserButton.vue';
 import UserLayoutContent from './UserLayoutContent.vue';
+import UserForm from './UserForm.vue';
 import { mainStore } from '../../store';
 import Mask from '../common/hooks/mask.vue';
 import { ref } from 'vue';
 import { getTemplate } from '../../request/index'
-import UserForm from './UserForm.vue';
+import eventBus from '../utils/eventBus';
+
 
 const tmp = await getTemplate()
 const root = tmp.data.template;
-
+eventBus.emit('title', tmp.data.title)
 const store = mainStore()
 const rootNode = ref(root)
 store.initComponent(rootNode.value, 0)

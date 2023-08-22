@@ -4,7 +4,7 @@
             <el-form-item v-for="(item, key) in _model" :label="key" :prop="key">
                 <el-input v-model="_model[item]" @click.stop />
             </el-form-item>
-            <el-button>提交</el-button>
+            <el-button @click.stop="submit">提交</el-button>
         </el-form>
     </div>
 </template>

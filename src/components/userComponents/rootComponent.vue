@@ -14,11 +14,10 @@ import UserLayoutContent from './UserLayoutContent.vue';
 import { mainStore } from '../../store';
 import Mask from '../common/hooks/mask.vue';
 import { ref } from 'vue';
-import { getContent, getTemplate } from '../../request/index'
+import { getTemplate } from '../../request/index'
 import UserForm from './UserForm.vue';
 
 const tmp = await getTemplate()
-console.log(tmp)
 const root = tmp.data.template;
 
 const store = mainStore()

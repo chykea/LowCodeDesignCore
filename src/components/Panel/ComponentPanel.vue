@@ -72,12 +72,12 @@ const templateNode = [
                 tag: 'Form',
                 props: {
                     style: {
-                        width: '500px'
+                        width: '100%'
                     },
                     model: {
-                        name: '飞虎队',
-                        age: '18',
-                        address: 'China'
+                        name: '',
+                        age: '',
+                        address: ''
                     },
                     ref: 'testForm'
                 },

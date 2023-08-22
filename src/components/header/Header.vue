@@ -26,6 +26,7 @@ const store = mainStore();
 
 // 标题
 const title = ref(store.fileContent.title)
+console.log(title.value);
 const edit = ref(false)
 const setFileTitle = () => {
     store.setFileTitle(title.value)

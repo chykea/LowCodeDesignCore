@@ -28,6 +28,8 @@ const tabChange = (index) => {
 const addComponent = (node) => {
     store.addComponent(node) // 点击,直接向根节点添加组件
 }
+// 这里的模板，可以存到服务器中
+// 所以就可以实现，可以保存已经编辑好的组件作为模板
 const templateNode = [
     {
         id: 1,
@@ -62,7 +64,9 @@ const templateNode = [
                         age: '',
                         address: ''
                     },
-                    ref: 'testForm'
+                    ref: 'testForm',
+                    span: 8,
+                    rules: []
                 },
                 values: {},
                 childrens: []

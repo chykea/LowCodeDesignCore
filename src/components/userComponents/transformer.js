@@ -23,7 +23,8 @@ const UserForm = (raw) => {
         ref: raw.props.ref,
         rules: raw.props.rules,
         labelWidth: raw.props.labelWidth,
-        model: raw.props.model
+        model: raw.props.model,
+        span:raw.props.span
     }
 }
 const useTransformer = () => {

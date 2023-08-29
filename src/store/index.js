@@ -63,7 +63,22 @@ export const mainStore = defineStore('main', {
             if (parentId !== 0) this.components.get(parentId).childrens.push(copyNode)
             if (node.childrens) node.childrens.forEach(child => this.addComponent(child, copyNode.id))
         },
-        // 设置当前激活的组件的临时样式
+        // 设置当前激活组件的样式(编辑功能)
+        setActiveComponentProps(props) {
+            if (this.activeComponentId === -1) return
+            const componentProps = this.components.get(this.activeComponentId).props;
+            for (let key in props) {
+                if (props[key] instanceof Array) {
+                    componentProps[key] = [...props[key]]
+                } else if (props[key] instanceof Object) {
+                    componentProps[key] = cloneDeep(props[key])
+                } else {
+                    componentProps[key] = props[key]
+                }
+            }
+        },
+
+        // 设置当前激活的组件的临时样式(比如拖拽的使用会用到)
         setActiveComponentTmpStyle(style) {
             if (this.activeComponentId === -1) return
             const componentStyle = this.components.get(this.activeComponentId).tmpStyle;
@@ -119,7 +134,7 @@ export const mainStore = defineStore('main', {
             this.deleteComponentMap(this.activeComponentId)
             this.deleteComponentJson(parentId, this.activeComponentId)
         },
-
+        // 从父组件中删除对应的子组件
         deleteComponentJson(parentId, targetId) {
             const childrens = this.components.get(parentId).childrens;
             for (let i = 0; i < childrens.length; i++) {
@@ -129,7 +144,7 @@ export const mainStore = defineStore('main', {
             }
             return null
         },
-
+        // 从map中删除对应组件
         deleteComponentMap(activeComponentId) {
             const childrens = this.components.get(activeComponentId).childrens;
             this.components.delete(activeComponentId);
@@ -143,11 +158,10 @@ export const mainStore = defineStore('main', {
             }
         },
 
-        /** 开始处理文件信息
-         * 
-         * 
+        /** 
+         * 开始处理文件信息
+         * 将传入的template设置为当前的文件,一般是保存服务器响应回来的文件数据
          */
-        // 将传入的template设置为当前的文件,一般是保存服务器响应回来的文件数据
         setFileByJSON(template) {
             this.fileContent = template;
         },

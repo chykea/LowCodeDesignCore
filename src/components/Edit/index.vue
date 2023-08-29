@@ -2,6 +2,7 @@
     <div class="edit">
         <div class="edit_box">
             <EditPanel />
+
         </div>
     </div>
 </template>

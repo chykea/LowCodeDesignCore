@@ -2,17 +2,23 @@
  * @Author: chykea
  * @Date: 2023-08-10 10:54:11
  * @LastEditors: chykea
- * @LastEditTime: 2023-08-10 11:08:30
+ * @LastEditTime: 2023-08-30 10:42:13
  * @Description: 工具库
  */
 
 /**
- * @description: 防抖函数
+ * @description: 简易防抖函数
  * @param {Function} fn
  * @return {Function}
  */
-export function debounce(fn) {
-
+export function debounce(fn, delay = 1000) {
+    let timer = null;
+    return function () {
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => {
+            fn.apply(this)
+        }, delay)
+    }
 }
 
 /**

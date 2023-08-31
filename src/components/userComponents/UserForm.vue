@@ -3,7 +3,7 @@
         <el-form :ref="ref" :rules="rules" :label-width="labelWidth" :model="model">
             <el-form-item v-for="(item, key) in model" :label="key" :prop="key">
                 <el-col :span="span">
-                    <el-input @click.stop />
+                    <el-input disabled @click.stop />
                 </el-col>
             </el-form-item>
             <!-- <el-button @click.stop="submit">提交</el-button> -->

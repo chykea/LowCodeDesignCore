@@ -10,7 +10,7 @@
     </div>
     <el-dialog v-model="showColumnDialog" title="Shipping address">
         <el-form>
-            {{ props.label }}
+            {{ labelValues }}
             <el-form-item v-for="(item, key, index) in props.model" :key="uniqueId()">
                 <!-- {{ item }} --- {{ key }} --- {{ index }} -->
                 <el-col :span="4">
@@ -25,7 +25,7 @@
                 <el-col :span="2">
                     <div class="el-input">
                         <div class="el-input__wrapper">
-                            <input class="el-input__inner" v-model="labelValues[key]" />
+                            <input class="el-input__inner" v-model="labelValues[index]" />
                         </div>
                     </div>
                 </el-col>
@@ -66,7 +66,8 @@ const setProps = (obj = {}) => {
 // 编辑表单列
 const showColumnDialog = ref(false);
 const modelKeys = ref(Object.keys(props.model))
-const labelValues = ref(props.label)
+const labelValues = ref(Object.values(props.label))
+
 
 
 const addColumn = () => {
@@ -83,7 +84,7 @@ const addColumn = () => {
     label[colName] = colName;
     setProps({ model, label })
     modelKeys.value = Object.keys(model)
-    labelValues.value = label
+    labelValues.value = Object.values(label)
 }
 // 保存
 const saveFormModel = () => {
@@ -92,16 +93,13 @@ const saveFormModel = () => {
     // 构造新的 model
     modelKeys.value.forEach((item, index) => {
         model[item] = ''
-        // label[item] = labelValues.value[item]
+        label[item] = labelValues.value[index]
     })
-    for (let key in labelValues.value) {
-        label[key] = labelValues.value[key]
-    }
-    console.log(label)
     setProps({ model, label })
     showColumnDialog.value = false
-    labelValues.value = label
+    labelValues.value = Object.values(label)
 }
+
 // 删除
 const deleteColumn = (item) => {
     modelKeys.value.splice(modelKeys.value.indexOf(item), 1)
@@ -112,6 +110,7 @@ const deleteColumn = (item) => {
         label[item] = props.label[item]
     })
     setProps({ model, label })
+    labelValues.value = Object.values(label)
 }
 
 

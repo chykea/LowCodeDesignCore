@@ -64,6 +64,11 @@ const templateNode = [
                         age: '',
                         address: ''
                     },
+                    label: {
+                        name: '姓名',
+                        age: '年龄',
+                        address: '地址'
+                    },
                     ref: 'testForm',
                     span: 8,
                     rules: []

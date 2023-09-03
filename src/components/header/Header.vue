@@ -7,6 +7,9 @@
         </div>
         <div class="operation">
             <div class="operation_box">
+                <router-link to="/test">
+                    <ElButton>测试</ElButton>
+                </router-link>
                 <ElButton>预览</ElButton>
                 <ElButton @click="save">保存</ElButton>
                 <ElButton @click="download">下载</ElButton>
@@ -20,7 +23,7 @@
 import { mainStore } from '../../store';
 import { saveContent } from '../../request/index.js'
 import { ref } from 'vue';
-import { ElButton, ElInput } from 'element-plus';
+import { ElButton, ElInput, ElMessage } from 'element-plus';
 import eventBus from '../utils/eventBus'
 
 
@@ -47,7 +50,11 @@ const save = () => {
     const file = store.setFileContentTemplate()
     const p = saveImpl(file)
     p.then(res => {
-        console.log(res)
+        ElMessage({
+            message: '保存成功',
+            type: 'success',
+            duration: 2000
+        })
     })
 
 }

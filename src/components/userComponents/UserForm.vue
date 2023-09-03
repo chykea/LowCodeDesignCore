@@ -35,6 +35,10 @@ const props = defineProps({
         type: Object,
         default: {},
     },
+    label: {
+        type: Object,
+        default: {},
+    },
     submit: {
         type: Function,
         default: () => { },
@@ -46,4 +50,8 @@ const props = defineProps({
     }
 });
 </script>
-<style scoped></style>
+<style scoped>
+.el-form {
+    padding: 0 40px;
+}
+</style>

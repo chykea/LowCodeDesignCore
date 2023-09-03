@@ -1,5 +1,5 @@
 <template>
-    <div :style="style">
+    <div :style="style" style="min-height: 100px;">
         <el-form :ref="ref" :rules="rules" :label-width="labelWidth" :model="model">
             <el-form-item v-for="(item, key) in model" :label="key" :prop="key">
                 <el-col :span="span">

@@ -5,9 +5,28 @@
     <div class="open_dialog_btn">
       <span @click="showColumnDialog = true">编辑表单列</span>
     </div>
+    <div>
+      <el-checkbox v-model="showSubmit" @change="setSubmit" border>提交</el-checkbox>
+
+      <el-checkbox></el-checkbox>
+    </div>
+    <div v-show="showSubmit">
+      <div>
+        <span>提交链接：</span><el-input v-model="submitLink"></el-input>
+      </div>
+      <div>
+        <span>提交方式：</span>
+        <div>
+          <el-radio-group v-model="submitWay">
+            <el-radio v-for="item in submitWaySelect" :key="item.id" :label="item.label">{{ item.label }}</el-radio>
+          </el-radio-group>
+        </div>
+      </div>
+      <el-button @click="confirmSubmit">确认</el-button>
+    </div>
     <ElButton @click="setProps(props)">保存</ElButton>
   </div>
-  <el-dialog v-model="showColumnDialog" title="Shipping address">
+  <el-dialog v-model="showColumnDialog" title="表单列">
     <el-form>
       <el-form-item v-for="(item, key, index) in props.model" :key="uniqueId()">
         <!-- {{ item }} --- {{ key }} --- {{ index }} -->
@@ -48,7 +67,7 @@
 <script setup>
 import { computed, reactive, ref } from "vue";
 import { mainStore } from "../../../store";
-import { ElButton } from "element-plus";
+import { ElButton, ElMessage } from "element-plus";
 import { uniqueId } from "lodash";
 const store = mainStore();
 
@@ -63,7 +82,7 @@ const setProps = (obj = {}) => {
 const showColumnDialog = ref(false);
 const modelKeys = ref(Object.keys(props.model));
 const labelValues = ref(Object.values(props.label));
-
+// 新增
 const addColumn = () => {
   const model = {};
   const label = {};
@@ -99,7 +118,7 @@ const saveFormModel = () => {
 const deleteColumn = (index) => {
   modelKeys.value.splice(index, 1);
   labelValues.value.splice(index, 1);
-  
+
   const model = {};
   const label = {};
   modelKeys.value.forEach((item, index) => {
@@ -108,6 +127,39 @@ const deleteColumn = (index) => {
   });
   setProps({ model, label });
 };
+
+const showSubmit = ref(props.sumbitBtnShow)
+const submitLink = ref('')
+const submitWay = ref('axios')
+const submitWaySelect = ref([{
+  id: '01',
+  label: 'axios',
+},
+  // {
+  //   id: '02',
+  //   label: '$.ajax'
+  // }
+])
+const setSubmit = (value) => {
+  value === false ? submitLink.value = '' : null
+  setProps({ sumbitBtnShow: showSubmit.value })
+}
+
+const confirmSubmit = () => {
+  if (submitLink.value.trim() === '') {
+    ElMessage({
+      message: '请填写提交链接',
+      type: 'warning',
+      duration: 1500
+    })
+    return
+
+  };
+  const prop = {};
+  prop['submitLink'] = submitLink.value;
+  prop['submitWay'] = submitWay.value
+  setProps(prop)
+}
 </script>
 <style scoped>
 .open_dialog_btn {

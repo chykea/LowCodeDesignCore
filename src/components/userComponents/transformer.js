@@ -24,7 +24,10 @@ const UserForm = (raw) => {
         rules: raw.props.rules,
         labelWidth: raw.props.labelWidth,
         model: raw.props.model,
-        span:raw.props.span
+        span: raw.props.span,
+        sumbitBtnShow: raw.props.sumbitBtnShow,
+        submitLink: raw.props.submitLink,
+        submitWay: raw.props.submitWay
     }
 }
 const useTransformer = () => {

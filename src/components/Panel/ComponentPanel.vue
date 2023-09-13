@@ -72,9 +72,11 @@ const templateNode = [
                     ref: 'testForm',
                     span: 8,
                     rules: [],
-                    sumbitBtnShow: true,
-                    submitLink: '',
-                    submitWay: 'axios'
+                    submitOption: {
+                        "show": true,
+                        "link": "",
+                        "way": "axios"
+                    }
                 },
                 values: {},
                 childrens: []

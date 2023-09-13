@@ -6,13 +6,13 @@
       <span @click="showColumnDialog = true">编辑表单列</span>
     </div>
     <div>
-      <el-checkbox v-model="showSubmit" @change="setSubmit" border>提交</el-checkbox>
+      <el-checkbox v-model="show" @change="setSubmit" border>提交</el-checkbox>
 
       <el-checkbox></el-checkbox>
     </div>
-    <div v-show="showSubmit">
+    <div v-show="show">
       <div>
-        <span>提交链接：</span><el-input v-model="submitLink"></el-input>
+        <span>提交链接：</span><el-input v-model="link"></el-input>
       </div>
       <div>
         <span>提交方式：</span>
@@ -69,6 +69,7 @@ import { computed, reactive, ref } from "vue";
 import { mainStore } from "../../../store";
 import { ElButton, ElMessage } from "element-plus";
 import { uniqueId } from "lodash";
+import { isUrlOrIp } from "../../utils/utils"
 const store = mainStore();
 
 // 获取表单属性props
@@ -128,9 +129,9 @@ const deleteColumn = (index) => {
   setProps({ model, label });
 };
 
-const showSubmit = ref(props.sumbitBtnShow)
-const submitLink = ref('')
-const submitWay = ref('axios')
+const show = ref(props.submitOption.show)
+const link = ref(props.submitOption.link)
+const submitWay = ref(props.submitOption.way)
 const submitWaySelect = ref([{
   id: '01',
   label: 'axios',
@@ -141,24 +142,36 @@ const submitWaySelect = ref([{
   // }
 ])
 const setSubmit = (value) => {
-  value === false ? submitLink.value = '' : null
-  setProps({ sumbitBtnShow: showSubmit.value })
+  value === false ? link.value = '' : null
+  const option = {
+    ...props.submitOption,
+    show: value
+  };
+  setProps({ submitOption: option })
 }
 
 const confirmSubmit = () => {
-  if (submitLink.value.trim() === '') {
+  if (link.value.trim() === '') {
     ElMessage({
       message: '请填写提交链接',
       type: 'warning',
       duration: 1500
     })
     return
-
   };
+  if (!isUrlOrIp(link.value)) {
+    ElMessage({
+      message: '链接格式不正确',
+      type: 'warning',
+      duration: 1500
+    })
+    return
+  }
   const prop = {};
-  prop['submitLink'] = submitLink.value;
-  prop['submitWay'] = submitWay.value
-  setProps(prop)
+  prop['show'] = show.value
+  prop['link'] = link.value;
+  prop['way'] = submitWay.value
+  setProps({ submitOption: prop })
 }
 </script>
 <style scoped>

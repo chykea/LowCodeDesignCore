@@ -1,7 +1,7 @@
 <template>
     <div :style="style" style="min-height: 100px;">
         <el-form :ref="ref" :rules="rules" :label-width="labelWidth" :model="model">
-            <el-form-item v-for="(item, key) in model" :label="key" :prop="key">
+            <el-form-item v-for="(item, key) in model" :label="label[key]" :prop="key">
                 <el-col :span="span">
                     <el-input disabled @click.stop />
                 </el-col>
@@ -50,25 +50,24 @@ const props = defineProps({
         default: {}
     }
 });
-
 const submit = () => {
     console.log(props.submitOption);
 
-    // axios.post(props.submitLink, { ...props.model })
-    //     .then((res) => {
-    //         ElMessage({
-    //             message: '提交成功',
-    //             type: 'success',
-    //             duration: 1500
-    //         })
-    //     })
-    //     .catch((err => {
-    //         ElMessage({
-    //             message: err.message,
-    //             type: 'error',
-    //             duration: 1500
-    //         })
-    //     }));
+    /* axios.post(props.submitLink, { ...props.model })
+        .then((res) => {
+            ElMessage({
+                message: '提交成功',
+                type: 'success',
+                duration: 1500
+            })
+        })
+        .catch((err => {
+            ElMessage({
+                message: err.message,
+                type: 'error',
+                duration: 1500
+            })
+        })); */
 }
 </script>
 <style scoped>

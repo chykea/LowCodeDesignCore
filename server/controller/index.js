@@ -66,6 +66,9 @@ class Controller {
 
     }
 
+    async getComponentPanel(ctx) {
+
+    }
     tip(ctx) {
         ctx.body = {
             code: '404',

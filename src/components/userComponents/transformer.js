@@ -22,6 +22,7 @@ const UserForm = (raw) => {
         style: raw.props.style,
         ref: raw.props.ref,
         rules: raw.props.rules,
+        label: raw.props.label,
         labelWidth: raw.props.labelWidth,
         model: raw.props.model,
         span: raw.props.span,

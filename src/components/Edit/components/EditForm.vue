@@ -29,9 +29,10 @@
   <el-dialog v-model="showColumnDialog" title="表单列">
     <el-form>
       <el-form-item v-for="(item, key, index) in props.model" :key="uniqueId()">
-        <!-- {{ item }} --- {{ key }} --- {{ index }} -->
         <el-col :span="4">
           <!-- el-input绑定的方式是双向绑定,不是双向绑定的无法编辑 -->
+          <!-- 但要修改for循环内的数据的话，el-input会失去焦点，因为修改了会导致for循环重新渲染 -->
+          <!-- 一个解决方案就是，把要修改的数据提取出来，然后通过修改这些数据，后续更新就以这些数据为准即可 -->
           <div class="el-input">
             <div class="el-input__wrapper">
               <input class="el-input__inner" v-model="modelKeys[index]" />
@@ -101,6 +102,7 @@ const addColumn = () => {
   modelKeys.value = Object.keys(model);
   labelValues.value = Object.values(label);
 };
+
 // 保存
 const saveFormModel = () => {
   const model = {};
@@ -129,6 +131,7 @@ const deleteColumn = (index) => {
   setProps({ model, label });
 };
 
+// 提交链接与提交方式
 const show = ref(props.submitOption.show)
 const link = ref(props.submitOption.link)
 const submitWay = ref(props.submitOption.way)
@@ -142,10 +145,12 @@ const submitWaySelect = ref([{
   // }
 ])
 const setSubmit = (value) => {
-  value === false ? link.value = '' : null
+  // 当取消选择后,把提交链接清空
+  // value === false ? link.value = '' : null
   const option = {
-    ...props.submitOption,
-    show: value
+    show: value,
+    link: link.value,
+    way: submitWay.value
   };
   setProps({ submitOption: option })
 }
@@ -173,6 +178,8 @@ const confirmSubmit = () => {
   prop['way'] = submitWay.value
   setProps({ submitOption: prop })
 }
+
+
 </script>
 <style scoped>
 .open_dialog_btn {

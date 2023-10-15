@@ -48,21 +48,31 @@ class Controller {
     }
 
     async getTemplate(ctx) {
-        const file = await import('../data/index.json')
-        if (JSON.stringify(file.default) === '{}') {
+        try {
+            const file = await import('../data/index.json')
+            if (JSON.stringify(file.default) === '{}') {
+                // 没有保存过的，就使用初始模板
+                ctx.body = {
+                    code: '200',
+                    msg: '成功',
+                    data: template
+                }
+            } else {
+                ctx.body = {
+                    code: '200',
+                    msg: '成功',
+                    data: file.default
+                }
+            }
+        } catch (e) {
             // 没有保存过的，就使用初始模板
             ctx.body = {
                 code: '200',
                 msg: '成功',
                 data: template
             }
-        } else {
-            ctx.body = {
-                code: '200',
-                msg: '成功',
-                data: file.default
-            }
         }
+
 
     }
 
